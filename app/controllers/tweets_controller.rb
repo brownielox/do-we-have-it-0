@@ -78,4 +78,32 @@ class TweetsController < ApplicationController
       redirect to '/tweets'
   end
 
+  get '/search_cupboard' do
+    # @input = Tweet.find(params[:id])
+    if !logged_in?
+      redirect to "/login"
+    else
+      erb :"tweets/search_cupboard"
+      # @input == "bananas"
+      # "Yes, it's in your cupboard!"
+    # else
+    #   "Sorry, that's not in your cupboard!"
+    end
+  end
+
+  post '/search_cupboard' do
+    if !logged_in?
+      redirect '/login'
+    elsif
+      params[:content].empty?
+      erb :'/search_cupboard'
+    else
+        if Tweet.find_by(content: params[:content])
+          erb :'/tweets/yes'
+        else
+          erb :'/tweets/no'
+        end
+      end
+  end
+
 end

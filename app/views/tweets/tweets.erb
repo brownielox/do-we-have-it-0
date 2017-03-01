@@ -1,6 +1,12 @@
-<h1>Welcome, <%= @user.username %>!</h1>
+<h1>Welcome to your cupboard, <%= @user.username %>!</h1>
 
+<a href="/search_cupboard">
+  Search the cupboard:</a>
+
+<br>
+<br>
+Full cupboard list:
 <% @tweets.each do |tweet| %>
   <p><a href="/tweets/<%= tweet.id %>"><%= tweet.content %></a></p>
-  <p>This profound thought brought to you by <%= tweet.user.username %>.</p>
+  <!-- <p>Added by <%= tweet.user.username %>.</p> -->
 <% end %>
