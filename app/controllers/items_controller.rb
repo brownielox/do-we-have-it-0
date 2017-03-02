@@ -87,12 +87,13 @@ class ItemsController < ApplicationController
       params[:content].empty?
       erb :'/search_cupboard'
     else
-        if Item.find_by(content: params[:content])
-          erb :'/items/yes'
-        else
-          erb :'/items/no'
-        end
+      item = Item.find_by(content: params[:content])
+      if item && item.user_id == current_user.id
+        erb :'/items/yes'
+      else
+        erb :'/items/no'
       end
+    end
   end
 
 end
