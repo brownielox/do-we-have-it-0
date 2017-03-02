@@ -45,7 +45,7 @@ class ItemsController < ApplicationController
       redirect "/login"
     else
       @item = Item.find(params[:id])
-      erb :"items/show_item"
+      erb :'items/show_item'
     end
   end
 
@@ -54,7 +54,7 @@ class ItemsController < ApplicationController
       redirect to "/login"
     else
       @item = Item.find(params[:id])
-      erb :"items/edit_item"
+      erb :'items/edit_item'
     end
   end
 
@@ -76,7 +76,7 @@ class ItemsController < ApplicationController
     if !logged_in?
       redirect to "/login"
     else
-      erb :"items/search_cupboard"
+      erb :'items/search_cupboard'
     end
   end
 
