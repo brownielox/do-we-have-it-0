@@ -5,14 +5,14 @@ class TweetsController < ApplicationController
       redirect '/login'
     else
       @user = User.find_by_id(session[:user_id])
-      @tweets = Tweet.all
+      @items = Item.all
       erb :'tweets/tweets'
     end
   end
 
   get '/test' do
     @user = User.find_by_id(session[:user_id])
-    @tweets = Tweet.all
+    @items = Item.all
     erb :'users/show'
   end
 
@@ -98,8 +98,8 @@ class TweetsController < ApplicationController
       params[:content].empty?
       erb :'/search_cupboard'
     else
-        if Tweet.find_by(content: params[:content])
-          erb :'/tweets/yes'
+        if Item.find_by(content: params[:content])
+          erb :'/yes'
         else
           erb :'/tweets/no'
         end

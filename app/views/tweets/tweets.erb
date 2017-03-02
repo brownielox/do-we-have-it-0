@@ -6,7 +6,6 @@
 <br>
 <br>
 Full cupboard list:
-<% @tweets.each do |tweet| %>
-  <p><a href="/tweets/<%= tweet.id %>"><%= tweet.content %></a></p>
-  <!-- <p>Added by <%= tweet.user.username %>.</p> -->
+<% @items.each do |item| %>
+  <p><a href="/tweets/<%= item.id %>"><%= item.content %></a></p>
 <% end %>
