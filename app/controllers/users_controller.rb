@@ -8,7 +8,7 @@ class UsersController < ApplicationController
     if !logged_in?
       erb :'users/create_user'
     else
-      redirect '/tweets'
+      redirect '/items'
     end
   end
 
@@ -18,7 +18,7 @@ class UsersController < ApplicationController
       redirect '/signup'
     else
       session[:user_id] = @user.id
-      redirect to '/tweets'
+      redirect to '/items'
     end
   end
 
@@ -26,7 +26,7 @@ class UsersController < ApplicationController
     if !logged_in?
       erb :'users/login'
     else
-      redirect '/tweets'
+      redirect '/items'
     end
   end
 
@@ -34,7 +34,7 @@ class UsersController < ApplicationController
     @user = User.find_by(username: params[:username])
     if @user && @user.authenticate(params[:password])
       session[:user_id] = @user.id
-      redirect '/tweets'
+      redirect '/items'
     else
       redirect '/login'
     end

@@ -1,34 +1,28 @@
 class TweetsController < ApplicationController
 
-  get '/tweets' do
+  get '/items' do
     if !logged_in?
       redirect '/login'
     else
       @user = User.find_by_id(session[:user_id])
       @items = Item.all
-      erb :'tweets/tweets'
+      erb :'items/items'
     end
-  end
-
-  get '/test' do
-    @user = User.find_by_id(session[:user_id])
-    @items = Item.all
-    erb :'users/show'
   end
 
   get '/edit' do
     if !logged_in?
       redirect '/login'
     else
-      erb :'tweets/edit_tweet'
+      erb :'items/edit_item'
     end
   end
 
-  get '/tweets/new' do
+  get '/new' do
     if !logged_in?
       redirect '/login'
     else
-      erb :'tweets/create_tweet'
+      erb :'items/create_item'
     end
   end
 
@@ -37,57 +31,52 @@ class TweetsController < ApplicationController
       redirect '/login'
     elsif
       params[:content].empty?
-      redirect '/tweets/new'
+      redirect '/items/new'
     else
       @user = current_user
-      @user.tweets.build(content: params[:content])
+      @user.items.build(content: params[:content])
       @user.save
-      redirect '/tweets'
+      redirect '/items'
     end
   end
 
-  get '/tweets/:id' do
+  get '/items/:id' do
     if !logged_in?
       redirect "/login"
     else
-      @tweet = Tweet.find(params[:id])
-      erb :"tweets/show_tweet"
+      @item = Item.find(params[:id])
+      erb :"items/show_tweet"
     end
   end
 
-  get '/tweets/:id/edit' do
+  get '/items/:id/edit' do
     if !logged_in?
       redirect to "/login"
     else
-      @tweet = Tweet.find(params[:id])
-      erb :"tweets/edit_tweet"
+      @item = Item.find(params[:id])
+      erb :"items/edit_item"
     end
   end
 
-  patch '/tweets/:id/edit' do
-    tweet = Tweet.find(params[:id])
-    tweet.content = params[:content]
-    tweet.save
+  patch '/items/:id/edit' do
+    item = Item.find(params[:id])
+    item.content = params[:content]
+    item.save
   end
 
-  delete '/tweets/:id/delete' do
-    tweet = Tweet.find(params[:id])
-    if logged_in? && tweet.user_id == current_user.id
-      tweet.delete
+  delete '/items/:id/delete' do
+    item = Item.find(params[:id])
+    if logged_in? && item.user_id == current_user.id
+      item.delete
     end
-      redirect to '/tweets'
+      redirect to '/items'
   end
 
   get '/search_cupboard' do
-    # @input = Tweet.find(params[:id])
     if !logged_in?
       redirect to "/login"
     else
-      erb :"tweets/search_cupboard"
-      # @input == "bananas"
-      # "Yes, it's in your cupboard!"
-    # else
-    #   "Sorry, that's not in your cupboard!"
+      erb :"items/search_cupboard"
     end
   end
 
@@ -99,9 +88,9 @@ class TweetsController < ApplicationController
       erb :'/search_cupboard'
     else
         if Item.find_by(content: params[:content])
-          erb :'/yes'
+          erb :'/items/yes'
         else
-          erb :'/tweets/no'
+          erb :'/items/no'
         end
       end
   end
