@@ -1,6 +1,6 @@
 require './config/environment'
 require 'pry'
-require_relative 'app/controllers/tweets_controller'
+require_relative 'app/controllers/items_controller'
 require_relative 'app/controllers/users_controller'
 
 if ActiveRecord::Migrator.needs_migration?
@@ -9,5 +9,5 @@ end
 
 use Rack::MethodOverride
 run ApplicationController
-use TweetsController
+use ItemsController
 use UsersController

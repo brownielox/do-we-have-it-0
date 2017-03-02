@@ -7,10 +7,13 @@
 <br>
 <a href="/new">
     Add items</a>
-
+<br>
+<br>
+<a href="/logout">
+    Logout</a>
 <br>
 <br>
 <h3>Full cupboard list:</h3>
-<% @items.each do |item| %>
-  <p><a href="/tweets/<%= item.id %>"><%= item.content %></a></p>
+<% @user.items.each do |item| %>
+  <p><a href="/items/<%= item.id %>"><%= item.content %></a></p>
 <% end %>

@@ -1,9 +1,8 @@
-<p><%= @tweet.content %></p>
-<!-- <p>posted by <%= @tweet.user.username %></p> -->
+<p><%= @item.content %></p>
 
-<form method="post" action="/tweets/<%= @tweet.id %>/delete">
+<form method="post" action="/items/<%= @item.id %>/delete">
   <input id="hidden" type="hidden" name="_method" value="DELETE">
   <input type="submit" value="Delete Item">
 </form>
 
-<a href="/tweets/<%=@tweet.id%>/edit">Edit Item</a>
+<a href="/items/<%=@item.id%>/edit">Edit Item</a>

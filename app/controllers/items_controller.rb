@@ -1,4 +1,4 @@
-class TweetsController < ApplicationController
+class ItemsController < ApplicationController
 
   get '/items' do
     if !logged_in?
@@ -45,7 +45,7 @@ class TweetsController < ApplicationController
       redirect "/login"
     else
       @item = Item.find(params[:id])
-      erb :"items/show_tweet"
+      erb :"items/show_item"
     end
   end
 
