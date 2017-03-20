@@ -1,4 +1,4 @@
-<h1>Welcome to your cupboard, <%= @user.username %>!</h1>
+<h1>Welcome to your cupboard, <%= current_user.username %>!</h1>
 
 <h2> What would you like to do?</h2>
 <a href="/search_cupboard">
@@ -14,6 +14,6 @@
 <br>
 <br>
 <h3>Full cupboard list:</h3>
-<% @user.items.each do |item| %>
+<% @user_items.each do |item| %>
   <p><a href="/items/<%= item.id %>"><%= item.content %></a></p>
 <% end %>

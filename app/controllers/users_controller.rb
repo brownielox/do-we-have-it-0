@@ -13,12 +13,12 @@ class UsersController < ApplicationController
   end
 
   post '/signup' do
-    @user = User.create(username: params[:username], email: params[:email], password: params[:password])
-    if params[:username].empty? || params[:email].empty? || params[:password].empty?
-      redirect '/signup'
-    else
+    @user = User.new(username: params[:username_input], email: params[:email_input], password: params[:password_input])
+    if @user.save
       session[:user_id] = @user.id
-      redirect to '/items'
+      redirect '/items'
+    else
+      redirect '/signup'
     end
   end
 

@@ -4,8 +4,7 @@ class ItemsController < ApplicationController
     if !logged_in?
       redirect '/login'
     else
-      @user = User.find_by_id(session[:user_id])
-      @items = Item.all
+      @user_items = current_user.items
       erb :'items/items'
     end
   end
@@ -26,17 +25,16 @@ class ItemsController < ApplicationController
     end
   end
 
+
+#refactor here - Model.new --> Model.save
   post '/new' do
+    @item = Item.new(user: current_user, content: params[:content])
     if !logged_in?
       redirect '/login'
-    elsif
-      params[:content].empty?
-      redirect '/items/new'
-    else
-      @user = current_user
-      @user.items.build(content: params[:content])
-      @user.save
+    elsif @item.save
       redirect '/items'
+    else
+      redirect '/items/new'
     end
   end
 
@@ -58,13 +56,13 @@ class ItemsController < ApplicationController
     end
   end
 
-  patch '/items/:id/edit' do
+  patch '/items/:id' do
     item = Item.find(params[:id])
     item.content = params[:content]
     item.save
   end
 
-  delete '/items/:id/delete' do
+  delete '/items/:id' do
     item = Item.find(params[:id])
     if logged_in? && item.user_id == current_user.id
       item.delete
@@ -81,19 +79,13 @@ class ItemsController < ApplicationController
   end
 
   post '/search_cupboard' do
+    @item = Item.find_by(user: current_user, content: params[:content])
     if !logged_in?
       redirect '/login'
-    elsif
-      params[:content].empty?
-      erb :'/search_cupboard'
+    elsif @item
+      erb :'items/yes'
     else
-      item = Item.find_by(content: params[:content])
-      if item && item.user_id == current_user.id
-        erb :'/items/yes'
-      else
-        erb :'/items/no'
-      end
+      erb :'/items/no'
     end
   end
-
 end
