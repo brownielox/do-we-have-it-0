@@ -26,12 +26,10 @@ class ItemsController < ApplicationController
   end
 
 
-#refactor here - Model.new --> Model.save
   post '/new' do
-    @item = Item.new(user: current_user, content: params[:content])
-    if !logged_in?
-      redirect '/login'
-    elsif @item.save
+    redirect '/login' if !logged_in?
+    @item = current_user.items.build(content: params[:content])
+    if @item.save
       redirect '/items'
     else
       redirect '/items/new'

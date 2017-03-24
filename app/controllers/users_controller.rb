@@ -6,6 +6,7 @@ class UsersController < ApplicationController
 
   get '/signup' do
     if !logged_in?
+      @user = User.new
       erb :'users/create_user'
     else
       redirect '/items'
@@ -18,7 +19,7 @@ class UsersController < ApplicationController
       session[:user_id] = @user.id
       redirect '/items'
     else
-      redirect '/signup'
+      erb :'users/create_user'
     end
   end
 
